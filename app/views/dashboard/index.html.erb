@@ -1,0 +1,29 @@
+<%= search_form_for @q, url: root_path do |f| %>
+
+  <%= f.label :name_or_channel_name_cont %>
+  <%= f.search_field :name_or_channel_name_cont %>
+
+  <%= f.submit %>
+<% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Show</th>
+      <th scope="col">Timing</th>
+      <th scope="col">Channel</th>
+      <th scope="col">Favorite</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shows.each do |show| %>
+      <tr>
+        <td><%= show.name %></td>
+        <td><%= show.show_time %></td>
+        <td><%= show.channel.name %></td>
+        <td><%= show.is_favorite ? "Yes" : "No" %></td>
+        <% status = show.is_favorite ? "Remove from favorite" : "Add to favorite"%>
+        <td><%= link_to "#{status}", dashboard_path(show) , method: :put, class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
